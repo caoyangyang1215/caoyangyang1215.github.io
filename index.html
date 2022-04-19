@@ -149,11 +149,6 @@
         <blockquote>
 <p>用 java 实现 spring 的 IOC 容器，阅读 <a target="_blank" rel="noopener" href="https://github.com/code4craft/tiny-spring">tiny-spring</a> 之后整理，从 step-1 到 step-6 由简入繁</p>
 </blockquote>
-<h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们<br>那么我们需要一个类，作为 容器，存放 bean<br>最简单的做法是，定义一个 <code>BeanFactory</code> 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> BeanFactory &#123;</span><br><span class="line">	<span class="keyword">private</span> Map&lt;String,Object&gt; beanMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String,Object&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> beanMap.get(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBean</span><span class="params">(String name, Object bean)</span> &#123;</span><br><span class="line">		beanMap.put(name,bean);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现在就可以调用 registerBean 方法把 bean 放入到容器中，getBean 获取 bean了</p>
-<p>将上面的方法优化一下</p>
         
           <a class="article-more-a" href="/2022/04/19/javaIOC/#more">more >></a>
         
