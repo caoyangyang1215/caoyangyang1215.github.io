@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="cyy blog">
 <meta property="og:description" content="用 java 实现 spring 的 IOC 容器，阅读 tiny-spring 之后整理，从 step-1 到 step-6 由简入繁  step1IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们那么我们需要一个类，作为 容器，存放 bean最简单的做法是，定义一个 BeanFactory 类作为容器，一个 map 属性以">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/04/19/javaIOC/%5Cimage-67276738a6c34b8eb421c6a9bb0dbd8a.png">
+<meta property="og:image" content="http://example.com/2022/04/19/javaIOC/image-67276738a6c34b8eb421c6a9bb0dbd8a.png">
 <meta property="article:published_time" content="2022-04-19T07:53:45.000Z">
-<meta property="article:modified_time" content="2022-04-19T09:08:26.850Z">
+<meta property="article:modified_time" content="2022-04-19T09:27:17.129Z">
 <meta property="article:author" content="cyy">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="ioc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/04/19/javaIOC/%5Cimage-67276738a6c34b8eb421c6a9bb0dbd8a.png">
+<meta name="twitter:image" content="http://example.com/2022/04/19/javaIOC/image-67276738a6c34b8eb421c6a9bb0dbd8a.png">
   
     <link rel="alternative" href="/atom.xml" title="cyy blog" type="application/atom+xml">
   
@@ -242,7 +242,7 @@
 
 
 <h2 id="step4"><a href="#step4" class="headerlink" title="step4"></a>step4</h2><p>经过前三步的逐步优化，已经实现容器实例化 bean 并注入属性值</p>
-<p><img src="/2022/04/19/javaIOC/%5Cimage-67276738a6c34b8eb421c6a9bb0dbd8a.png" alt="image.png"></p>
+<p><img src="/2022/04/19/javaIOC/image-67276738a6c34b8eb421c6a9bb0dbd8a.png" alt="image.png"></p>
 <p>如果一个 bean 有很多属性值的话，代码会写的非常长<br>所以这一步实现类似 sping 的 xml 配置方式<br>在 xml 里面配置 bean 名称，bean 路径，bean 属性名，bean 属性值<br>按照 spring 的方法，新建一个 xml 文件</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;helloWorldService&quot;</span> <span class="attr">class</span>=<span class="string">&quot;us.codecraft.tinyioc.HelloWorldService&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;text&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Hello World!&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
