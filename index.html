@@ -146,33 +146,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们<br>那么我们需要一个类，作为 容器，存放 bean<br>最简单的做法是，定义一个 <code>BeanFactory</code> 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象</p>
+        <blockquote>
+<p>用 java 实现 spring 的 IOC 容器，阅读 <a target="_blank" rel="noopener" href="https://github.com/code4craft/tiny-spring">tiny-spring</a> 之后整理，从 step-1 到 step-6 由简入繁</p>
+</blockquote>
+<h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们<br>那么我们需要一个类，作为 容器，存放 bean<br>最简单的做法是，定义一个 <code>BeanFactory</code> 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> BeanFactory &#123;</span><br><span class="line">	<span class="keyword">private</span> Map&lt;String,Object&gt; beanMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String,Object&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> beanMap.get(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBean</span><span class="params">(String name, Object bean)</span> &#123;</span><br><span class="line">		beanMap.put(name,bean);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
 <p>现在就可以调用 registerBean 方法把 bean 放入到容器中，getBean 获取 bean了</p>
-<p>将上面的方法优化一下<br>定义一个 <code>BeanDefinition</code> 用来封装 bean，使用对象去封装 bean 的好处是，除了存放 bean 本身，还可以定义其他的属性去存放一些 bean 的其他信息</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanDefinition</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Object bean;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BeanDefinition</span><span class="params">(Object bean)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.bean = bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>再将前面的容器对应修改，逻辑还是一样的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Map&lt;String, BeanDefinition&gt; beanDefinitionMap = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, BeanDefinition&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> beanDefinitionMap.get(name).getBean();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinition</span><span class="params">(String name, BeanDefinition beanDefinition)</span> &#123;</span><br><span class="line">		beanDefinitionMap.put(name, beanDefinition);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>容器完成了，定义一个类作为 bean，用作测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorldServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">HelloWorldService</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">helloWorld</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>example main 示例<br>初始化 BeanFactory 容器<br>初始化一个 <code>HelloServiceImpl</code> 对象，存放进 BeanDefinition 的 bean 属性中<br>以 helloServiceImpl 作为 键(bean name)，beanDefinition 作为值存放进 BeanFactory 的 map 中<br>然后就可以调用 getBean 方法，通过 bean name 得到对应的 bean 对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       </span><br><span class="line">        <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanFactory</span>();</span><br><span class="line">       </span><br><span class="line">        <span class="type">BeanDefinition</span> <span class="variable">beanDefinition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanDefinition</span>(<span class="keyword">new</span> <span class="title class_">HelloWorldServiceImpl</span>());</span><br><span class="line">        beanFactory.registerBeanDefinition(<span class="string">&quot;helloWorldServiceImpl&quot;</span>,beanDefinition);</span><br><span class="line">   </span><br><span class="line">        <span class="type">HelloWorldService</span> <span class="variable">helloWorldService</span> <span class="operator">=</span> (HelloWorldService)beanFactory.getBean(<span class="string">&quot;helloWorldServiceImpl&quot;</span>);</span><br><span class="line">        helloWorldService.helloWorld();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
+<p>将上面的方法优化一下</p>
+        
+          <a class="article-more-a" href="/2022/04/19/javaIOC/#more">more >></a>
+        
       
 
       
@@ -186,6 +170,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ioc</a>
         		</li>
       		
 		</ul>
@@ -246,19 +234,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        
+          <a class="article-more-a" href="/2022/04/19/hello-world/#more">more >></a>
+        
       
 
       
@@ -387,6 +365,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ioc</a>
               </li>
             
             <div class="clearfix"></div>
