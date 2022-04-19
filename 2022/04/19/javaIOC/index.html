@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2022/4 | cyy blog</title>
+  <title>javaIOC | cyy blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cyy blog">
-<meta property="og:url" content="http://example.com/archives/2022/04/index.html">
+  <meta name="description" content="step1用 java 实现 spring 的 IOC 容器 IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们那么我们需要一个类，作为 容器，存放 bean最简单的做法是，定义一个 BeanFactory 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象 1234567891011pub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaIOC">
+<meta property="og:url" content="http://example.com/2022/04/19/javaIOC/index.html">
 <meta property="og:site_name" content="cyy blog">
+<meta property="og:description" content="step1用 java 实现 spring 的 IOC 容器 IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们那么我们需要一个类，作为 容器，存放 bean最简单的做法是，定义一个 BeanFactory 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象 1234567891011pub">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-19T07:53:45.000Z">
+<meta property="article:modified_time" content="2022-04-19T07:58:34.386Z">
 <meta property="article:author" content="cyy">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="cyy blog" type="application/atom+xml">
@@ -124,36 +129,61 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-javaIOC" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/19/javaIOC/" class="archive-article-date">
-  	<time datetime="2022-04-19T07:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/19/javaIOC/">javaIOC</a>
+    <h1 class="article-title" itemprop="name">
+      javaIOC
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/04/19/javaIOC/" class="archive-article-date">
+  	<time datetime="2022-04-19T07:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>用 java 实现 spring 的 IOC 容器</p>
+<p>IOC 最基本的两个角色，容器 和 bean 本身，bean 被存放到容器中，需要使用的时候容器将 bean 提供给我们<br>那么我们需要一个类，作为 容器，存放 bean<br>最简单的做法是，定义一个 <code>BeanFactory</code> 类作为容器，一个 map 属性以键值对的形式存放 bean name 和 bean 对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> BeanFactory &#123;</span><br><span class="line">	<span class="keyword">private</span> Map&lt;String,Object&gt; beanMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;String,Object&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> beanMap.get(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBean</span><span class="params">(String name, Object bean)</span> &#123;</span><br><span class="line">		beanMap.put(name,bean);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>现在就可以调用 registerBean 方法把 bean 放入到容器中，getBean 获取 bean了</p>
+<p>将上面的方法优化一下<br>定义一个 <code>BeanDefinition</code> 用来封装 bean，使用对象去封装 bean 的好处是，除了存放 bean 本身，还可以定义其他的属性去存放一些 bean 的其他信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanDefinition</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> Object bean;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BeanDefinition</span><span class="params">(Object bean)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.bean = bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再将前面的容器对应修改，逻辑还是一样的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Map&lt;String, BeanDefinition&gt; beanDefinitionMap = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, BeanDefinition&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Object <span class="title function_">getBean</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> beanDefinitionMap.get(name).getBean();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">registerBeanDefinition</span><span class="params">(String name, BeanDefinition beanDefinition)</span> &#123;</span><br><span class="line">		beanDefinitionMap.put(name, beanDefinition);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>容器完成了，定义一个类作为 bean，用作测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorldServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">HelloWorldService</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">helloWorld</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>example main 示例<br>初始化 BeanFactory 容器<br>初始化一个 <code>HelloServiceImpl</code> 对象，存放进 BeanDefinition 的 bean 属性中<br>以 helloServiceImpl 作为 键(bean name)，beanDefinition 作为值存放进 BeanFactory 的 map 中<br>然后就可以调用 getBean 方法，通过 bean name 得到对应的 bean 对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleMain</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       </span><br><span class="line">        <span class="type">BeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanFactory</span>();</span><br><span class="line">       </span><br><span class="line">        <span class="type">BeanDefinition</span> <span class="variable">beanDefinition</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BeanDefinition</span>(<span class="keyword">new</span> <span class="title class_">HelloWorldServiceImpl</span>());</span><br><span class="line">        beanFactory.registerBeanDefinition(<span class="string">&quot;helloWorldServiceImpl&quot;</span>,beanDefinition);</span><br><span class="line">   </span><br><span class="line">        <span class="type">HelloWorldService</span> <span class="variable">helloWorldService</span> <span class="operator">=</span> (HelloWorldService)beanFactory.getBean(<span class="string">&quot;helloWorldServiceImpl&quot;</span>);</span><br><span class="line">        helloWorldService.helloWorld();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -165,46 +195,55 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/19/hello-world/" class="archive-article-date">
-  	<time datetime="2022-04-19T02:55:29.569Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/19/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/19/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -228,8 +267,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
