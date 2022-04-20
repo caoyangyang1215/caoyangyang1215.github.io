@@ -64,7 +64,7 @@ deploy:
   type: git
   repository:
     github: git@github.com:caoyangyang1215/caoyangyang1215.github.io.git
-    gitte: git@gitee.com/foreign_code/foreign_code.git
+    gitte: git@gitee.com:foreign_code/foreign_code.git
   branch: master
 jsonContent:
   meta: false
