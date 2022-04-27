@@ -6,16 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>cyy blog</title>
+  <title>java泛型 | cyy blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cyy blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="温故知新系列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java泛型">
+<meta property="og:url" content="http://example.com/2022/04/26/java%E6%B3%9B%E5%9E%8B/index.html">
 <meta property="og:site_name" content="cyy blog">
+<meta property="og:description" content="温故知新系列">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426221417261.png">
+<meta property="og:image" content="http://example.com/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426232837618.png">
+<meta property="og:image" content="http://example.com/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426233831737.png">
+<meta property="article:published_time" content="2022-04-26T14:05:03.000Z">
+<meta property="article:modified_time" content="2022-04-27T17:12:29.598Z">
 <meta property="article:author" content="cyy">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426221417261.png">
   
     <link rel="alternative" href="/atom.xml" title="cyy blog" type="application/atom+xml">
   
@@ -125,16 +133,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-java泛型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-java泛型" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/26/java%E6%B3%9B%E5%9E%8B/">java泛型</a>
+    <h1 class="article-title" itemprop="name">
+      java泛型
     </h1>
   
 
@@ -150,243 +156,152 @@
         <blockquote>
 <p>温故知新系列</p>
 </blockquote>
-        
-          <a class="article-more-a" href="/2022/04/26/java%E6%B3%9B%E5%9E%8B/#more">more >></a>
-        
-      
+<span id="more"></span>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<h2 id="step1"><a href="#step1" class="headerlink" title="step1"></a>step1</h2><p>了解泛型之前需要先考虑如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">123d</span>;</span><br><span class="line"><span class="type">Map</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">map.put(<span class="string">&quot;key&quot;</span>,d1);</span><br><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> (<span class="type">double</span>) map.get(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">System.out.println(d2);</span><br></pre></td></tr></table></figure>
 
-      
+<p>以上代码会正常打印出 d2 的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123.0</span></span><br></pre></td></tr></table></figure>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/26/java%E6%B3%9B%E5%9E%8B/">展开全文 >></a>
-        </p>
-      
+<p>上述代码将 <code>map.get(&quot;key&quot;) </code>的返回值强制转换为了一个 <code>double </code>类型</p>
+<p>如果不写强制类型转换，编译器会直接提示错误警告</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> map.get(<span class="string">&quot;key&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java注解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/23/java%E6%B3%A8%E8%A7%A3/">java注解</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/23/java%E6%B3%A8%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2022-04-23T13:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>温故知新系列</p>
+<p><img src="/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426221417261.png" alt="image-20220426221417261"></p>
+<p>它告诉编写者，不能直接把一个 <code>Object</code>类型的值赋值给一个 <code>double</code> 类型</p>
+<p><code>也就是说 map.get 方法的返回值是一个 Object 类型</code></p>
+<p>为什么会是这样呢？map.put 存放进去的 值  明明是一个 double 数</p>
+<blockquote>
+<p>分析一下</p>
 </blockquote>
-        
-          <a class="article-more-a" href="/2022/04/23/java%E6%B3%A8%E8%A7%A3/#more">more >></a>
-        
-      
+<p>Map 是一个以 键值对 的形式存放数据的数据结构</p>
+<p>它允许以任何类型的值作为<code>键(key)</code>，任何类型的值作为<code>值(value)</code></p>
+<p>由于<code>Object</code>是所有类型的超类</p>
+<p>所以 <code>map.put(key,value)</code>的两个形参都是 <code>Object</code>类型的</p>
+<p>这就实现了可以 <strong>以任何类型的值作为<code>键(key)</code>，任何类型的值作为<code>值(value)</code></strong></p>
+<p>执行以下代码时</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="string">&quot;key&quot;</span>,d1);</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p>map 把 key 和 value 都向上转型成了 Object 保存起来</p>
+<p>当通过 get(key) 去取到数据时，也返回的是转型之后的 Object 对象</p>
+<p>因为 map 自己并不会记录值的原始类型到底是哪一种，无论哪一种肯定都是 Object</p>
+<p>所以我们拿到 Object 对象之后需要进行一次对应的类型转换，成为我们需要的值</p>
+<p>这会导致一个问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">123d</span>;</span><br><span class="line"><span class="type">Map</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">map.put(<span class="string">&quot;key&quot;</span>,d1);</span><br><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> (<span class="type">double</span>) map.get(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">System.out.println(d2);</span><br><span class="line"><span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> (<span class="type">int</span>)map.get(<span class="string">&quot;key&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-      
+<p>以上代码在编辑器中不会有任何问题，但是如果执行，第6行就会出现异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Double cannot be cast to java.lang.Integer</span><br></pre></td></tr></table></figure>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/23/java%E6%B3%A8%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
+<p>只看第六行的代码完全没有任何问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> (<span class="type">int</span>)map.get(<span class="string">&quot;key&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+<p>将一个 Object 类型强转为一个 int 类型在 java 语法中是允许的</p>
+<p>但是由于这个 key 中存放的实际值是一个 double 类型</p>
+<p>所以实际运行时会变成 将一个 double 类型强转换为一个 int 类型，这在 java 中是不允许的</p>
+<p>就会出现异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">123d</span>;</span><br><span class="line"><span class="type">Map</span> <span class="variable">map</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HashMap</span>();</span><br><span class="line">map.put(<span class="string">&quot;key&quot;</span>,d1);</span><br><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> (<span class="type">double</span>) map.get(<span class="string">&quot;key&quot;</span>);</span><br><span class="line">System.out.println(d2);</span><br></pre></td></tr></table></figure>
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java基本数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/23/java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">java基本数据类型</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/23/java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2022-04-23T05:09:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>温故知新系列</p>
+<blockquote>
+<p>上面的代码由于我们已经知道 <code>key</code> 对应的值类型为 <code>double</code></p>
+<p>所以当我们通过 <code>map.get(&quot;key&quot;)</code>拿到返回的 <code>Object</code> 时</p>
+<p>已经知道该强转为哪一种类型，所以是完全没问题的</p>
 </blockquote>
-        
-          <a class="article-more-a" href="/2022/04/23/java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/23/java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
+<p><strong>但是如果现在我们只知道一个 map 和它的某一个 key，并不知道与这个 key 对应的 value 值是什么类型该怎么做呢？</strong></p>
+<p>实际的工程代码中，想要查到这个 key 是在哪里、什么地方被 put 进 map 的，是不好查的</p>
+<p>所以我们只能拿到 map.get 之后的 Object 对象</p>
+<p>这个 Object 在被转换之前的原始类型是什么我们并不知道</p>
+<p>但是由于语法上 Object 可以被转换成任何一个类型</p>
+<p>所以编辑阶段是不会有任何提示的，只有运行时才能知道是否正确</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> map.get(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line"><span class="comment">// 可以将 o 转换成任意类型，编辑时不会有错误提示</span></span><br><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> (<span class="type">int</span>)o;</span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> (<span class="type">double</span>)o;</span><br><span class="line"><span class="type">YourClass</span> <span class="variable">y</span> <span class="operator">=</span> (YourClass)o;</span><br><span class="line"><span class="comment">//... ...</span></span><br></pre></td></tr></table></figure>
 
 
 
-
-  
-    <article id="post-javaIOC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/19/javaIOC/">用 java 实现 spring 的 IOC 容器</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/19/javaIOC/" class="archive-article-date">
-  	<time datetime="2022-04-19T07:53:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>用 java 实现 spring 的 IOC 容器，阅读 <a target="_blank" rel="noopener" href="https://github.com/code4craft/tiny-spring">tiny-spring</a> 之后整理，从 step-1 到 step-6 由简入繁</p>
+<blockquote>
+<p>能否在 map 定义之初就指定这个 map 中的 键和值 的类型呢？</p>
+<p>调用 put、get 方法时的形参也按照指定的 键和值 的类型</p>
+<p>这样在编码时就能知道 此map中的 键和值 应该是什么类型</p>
 </blockquote>
-        
-          <a class="article-more-a" href="/2022/04/19/javaIOC/#more">more >></a>
-        
+<h2 id="step2"><a href="#step2" class="headerlink" title="step2"></a>step2</h2><p><strong>java1.5更新的泛型就解决了上述问题</strong></p>
+<p>现在定义一个 map 的方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer,String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>此种方式指定了这个 map 的键值只能是一个 Integer 类型，对应的值只能是一个 String 类型</p>
+<p>这样在调用 map.put 方法时，可以直观的看到这个 map 的键值类型</p>
+<p><img src="/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426232837618.png" alt="image-20220426232837618"></p>
+<p>现在往 map 中存放两条键值对数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map.put(<span class="number">1</span>,<span class="string">&quot;firstValue&quot;</span>);</span><br><span class="line">map.put(<span class="number">2</span>,<span class="string">&quot;secondValue&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后 get 数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> map.get(<span class="number">1</span>);</span><br><span class="line">System.out.println(s);</span><br><span class="line"><span class="comment">// firstValue</span></span><br></pre></td></tr></table></figure>
+
+<p>由于定义 map 之初就指定了 key 和 value 的类型，通过查看 map 的定义语句我们就能知道</p>
+<p>返回类型是什么，就用返回的类型同类型的变量去接收即可</p>
+<p>并且如果我们用一个其他类型的变量去接收，编辑器直接会提示代码错误</p>
+<p><img src="/2022/04/26/java%E6%B3%9B%E5%9E%8B/image-20220426233831737.png" alt="image-20220426233831737"></p>
+<p>解决了 <strong>step1中的问题</strong></p>
+<h2 id="step3-定义泛型类型"><a href="#step3-定义泛型类型" class="headerlink" title="step3 定义泛型类型"></a>step3 定义泛型类型</h2><p>自定义一个泛型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Gen</span> &lt;T&gt;&#123;</span><br><span class="line">    <span class="keyword">private</span> T one;</span><br><span class="line">    <span class="keyword">private</span> T two;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Gen</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Gen</span><span class="params">(T one,T two)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.one = one;</span><br><span class="line">        <span class="built_in">this</span>.two = two;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getOne</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> one;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOne</span><span class="params">(T one)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.one = one;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> T <span class="title function_">getTwo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> two;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setTwo</span><span class="params">(T two)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.two = two;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码含义是，**一个泛型类型<code>Gen</code>，它的泛型<code>T</code>可以是任意一个类，属性 one、two 都是 <code>T</code>类型的对象 **</p>
+<p>我们可以指定它的泛型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  Gen&lt;Number&gt; numberGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;Number&gt;(<span class="number">123</span>,<span class="number">456</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面我们指定了 numberGen 的泛型为 Number，现在 numberGen 的两个属性 one、two 就都是 Number 类型，且 set 方法的形参也都为 Number 类型</p>
+<p>再定义一个针对于 参数为 <strong>泛型是 Number 类型的 Gen</strong> 的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="type">int</span> <span class="title function_">sum</span><span class="params">(Gen&lt;Number&gt; gen)</span>&#123;</span><br><span class="line">  <span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line">  <span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line">  <span class="keyword">return</span> one.intValue() + two.intValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个简单的将 Gen 中的属性求和的方法，并且形参要求是一个 <strong>泛形为 Number 的 Gen 类型</strong></p>
+<p>如果再定义一个泛型为 Integer 类型的 Gen ，调用 sum 方法求和呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       Gen&lt;Number&gt; numberGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;Number&gt;(<span class="number">123</span>,<span class="number">456</span>);</span><br><span class="line">       System.out.println(sum(numberGen));</span><br><span class="line"></span><br><span class="line">       Gen&lt;Integer&gt; integerGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;&gt;(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">       System.out.println(sum(integerGen));<span class="comment">// 此处会有错误警告</span></span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="type">int</span> <span class="title function_">sum</span><span class="params">(Gen&lt;Number&gt; gen)</span>&#123;</span><br><span class="line">       <span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line">       <span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line">       <span class="keyword">return</span> one.intValue() + two.intValue();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照 java 的语法逻辑</p>
+<p>Integer 是 Number 的子类，那么可以向上转型为 Number</p>
+<p>而 sum 方法的形参中的 泛型 就是 Number，所以 integerGen 应该可以作为参数才对</p>
+<p>为什么不可以这么做？</p>
+<blockquote>
+<p>值得注意的是</p>
+<p>虽然 Integer 是 Number 的子类可以向上转型</p>
+<p>但是 sum 方法的形参是一个 <strong>泛型类型为 Number 的泛型类</strong>，并不是单纯的 Number</p>
+<p>而 <code> Gen&lt;Integer&gt; integerGen</code>并不是 <code>Gen&lt;Number&gt; numberGen</code>的子类，所以不可作为形参</p>
+</blockquote>
+<p>sum 方法的方法体对于一个 Number 或者 Number 的子类 同样适用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line"><span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line"><span class="keyword">return</span> one.intValue() + two.intValue();</span><br></pre></td></tr></table></figure>
+
+<p>有没有一种方式能够让 <strong>泛型是 Number 或者 Number 的子类的泛型对象 Gen 也能作为形参传入呢？</strong></p>
+<h2 id="step4-上界通配符"><a href="#step4-上界通配符" class="headerlink" title="step4 上界通配符"></a>step4 上界通配符</h2><p>针对 step3 最后的问题，java 提供了一种方式可以做到</p>
+<p>改写 sum 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="type">int</span> <span class="title function_">sum</span><span class="params">(Gen&lt;? extends Number&gt; gen)</span>&#123;</span><br><span class="line">        <span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line">        <span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line">        <span class="keyword">return</span> one.intValue() + two.intValue();</span><br><span class="line">   	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Gen&lt;? extends Number&gt; gen</code>的含义是</p>
+<p>泛型类型形参 gen 的泛型可以是 Number 或者 Number 的子类</p>
+<p>这种方式叫做 <strong><code>上界通配符</code></strong></p>
+<p>使用此种方式</p>
+<p>所有 泛型为 Number 或者 Number 子类的 Gen 都可以作为参数传递进来，得到 intValue 的和</p>
+<p>例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Gen&lt;Integer&gt; integerGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;&gt;();</span><br><span class="line">Gen&lt;Double&gt; doubleGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;&gt;();</span><br><span class="line">Gen&lt;Float&gt; floatGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// ... ...</span></span><br></pre></td></tr></table></figure>
+
+<p>现在 step3 中的代码就能正常执行了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       Gen&lt;Number&gt; numberGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;Number&gt;(<span class="number">123</span>,<span class="number">456</span>);</span><br><span class="line">       System.out.println(sum(numberGen));<span class="comment">//579</span></span><br><span class="line"></span><br><span class="line">       Gen&lt;Integer&gt; integerGen = <span class="keyword">new</span> <span class="title class_">Gen</span>&lt;&gt;(<span class="number">1</span>,<span class="number">5</span>);</span><br><span class="line">       System.out.println(sum(integerGen));<span class="comment">// 6</span></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="type">int</span> <span class="title function_">sum</span><span class="params">(Gen&lt;? extends Number&gt; gen)</span>&#123;</span><br><span class="line">       <span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line">       <span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line">       <span class="keyword">return</span> one.intValue() + two.intValue();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h3><blockquote>
+<p>使用上界通配符有一个需要注意的地方</p>
+</blockquote>
+<p>先修改一下 sum 方法代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="type">int</span> <span class="title function_">sum</span><span class="params">(Gen&lt;? extends Number&gt; gen)</span>&#123;</span><br><span class="line">        <span class="type">Number</span> <span class="variable">one</span> <span class="operator">=</span> gen.getOne();</span><br><span class="line">        <span class="type">Number</span> <span class="variable">two</span> <span class="operator">=</span> gen.getTwo();</span><br><span class="line">        </span><br><span class="line">        gen.setOne( <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">789</span>) );<span class="comment">// 此处会出现错误警告</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> one.intValue() + two.intValue();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们尝试在 sum 方法中修改 gen 的属性值，是不允许的</p>
+<p>按照以往的经验，拿到了一个对象，通过 set 方法去修改对象的属性值是没有问题的</p>
+<p>这里的原因是</p>
+<p><code>形参 gen 的泛型是 Number 或者它的子类，所以 set 方法的形参也是 Number 或者 其子类</code></p>
+<p><code>但是 Number 理论上可以有无数个子类，在 sum 方法中并不能知道此时的 gen 泛型到底是 Number 的哪一个子类</code></p>
+<p><code>所以 set 方法的形参到底是什么具体的类型在 sum 方法中无法知晓，而父类 Number 是无法转型为子类的</code></p>
+<p><code>set 方法就无法被正常调用</code></p>
+<p>由上面的分析得知</p>
+<p><strong><code>使用上界通配符的方式可以读取 泛型类型中的泛型，但是无法修改 泛型类型中的泛型 -- 只读</code></strong></p>
+
       
 
       
@@ -401,10 +316,6 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ioc</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -412,16 +323,24 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/19/javaIOC/">展开全文 >></a>
-        </p>
-      
 
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/23/java%E6%B3%A8%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java注解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -436,13 +355,32 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#step1"><span class="toc-number">1.</span> <span class="toc-text">step1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step2"><span class="toc-number">2.</span> <span class="toc-text">step2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step3-%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">step3 定义泛型类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#step4-%E4%B8%8A%E7%95%8C%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text">step4 上界通配符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">注：</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -466,8 +404,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
