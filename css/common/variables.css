@@ -1,18 +1,18 @@
 :root {
-  --background-color: rgba(217,217,217,0.561);
-  --second-background-color: rgba(210,210,210,0.561);
+  --background-color: #eaeaef;
+  --second-background-color: #e2e2e9;
   --primary-color: #6c9;
   --first-text-color: #484853;
   --second-text-color: #4c4c57;
   --third-text-color: #808091;
   --fourth-text-color: #ededef;
   --default-text-color: #50505c;
-  --border-color: rgba(152,152,152,0.561);
+  --border-color: #9999b2;
   --selection-color: #75d1a3;
   --shadow-color: rgba(0,0,0,0.2);
   --shadow-hover-color: rgba(0,0,0,0.28);
   --scrollbar-color: #595967;
-  --scroll-bar-bg-color: rgba(195,195,195,0.561);
+  --scroll-bar-bg-color: #cfcfdb;
   --link-color: #484853;
   --copyright-info-color: #c03;
   --avatar-background-color: #06c;
@@ -20,20 +20,20 @@
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --background-color: rgba(217,217,217,0.561);
-    --second-background-color: rgba(210,210,210,0.561);
+    --background-color: #eaeaef;
+    --second-background-color: #e2e2e9;
     --primary-color: #6c9;
     --first-text-color: #484853;
     --second-text-color: #4c4c57;
     --third-text-color: #808091;
     --fourth-text-color: #ededef;
     --default-text-color: #50505c;
-    --border-color: rgba(152,152,152,0.561);
+    --border-color: #9999b2;
     --selection-color: #75d1a3;
     --shadow-color: rgba(0,0,0,0.2);
     --shadow-hover-color: rgba(0,0,0,0.28);
     --scrollbar-color: #595967;
-    --scroll-bar-bg-color: rgba(195,195,195,0.561);
+    --scroll-bar-bg-color: #cfcfdb;
     --link-color: #484853;
     --copyright-info-color: #c03;
     --avatar-background-color: #06c;
@@ -63,20 +63,20 @@
   }
 }
 .light-mode {
-  --background-color: rgba(217,217,217,0.561);
-  --second-background-color: rgba(210,210,210,0.561);
+  --background-color: #eaeaef;
+  --second-background-color: #e2e2e9;
   --primary-color: #6c9;
   --first-text-color: #484853;
   --second-text-color: #4c4c57;
   --third-text-color: #808091;
   --fourth-text-color: #ededef;
   --default-text-color: #50505c;
-  --border-color: rgba(152,152,152,0.561);
+  --border-color: #9999b2;
   --selection-color: #75d1a3;
   --shadow-color: rgba(0,0,0,0.2);
   --shadow-hover-color: rgba(0,0,0,0.28);
   --scrollbar-color: #595967;
-  --scroll-bar-bg-color: rgba(195,195,195,0.561);
+  --scroll-bar-bg-color: #cfcfdb;
   --link-color: #484853;
   --copyright-info-color: #c03;
   --avatar-background-color: #06c;
