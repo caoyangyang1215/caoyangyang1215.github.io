@@ -16,11 +16,11 @@ KEEP.initModeToggle = () => {
     },
 
     enableDarkMode() {
-      document.body.classList.add('dark-mode');
-      document.body.classList.remove('light-mode');
-      this.iconDom.className = 'fas fa-sun';
-      KEEP.styleStatus.isDark = true;
-      KEEP.setStyleStatus();
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        this.iconDom.className = 'fas fa-sun';
+        KEEP.styleStatus.isDark = true;
+        KEEP.setStyleStatus();
     },
 
     isDarkPrefersColorScheme() {
@@ -29,7 +29,6 @@ KEEP.initModeToggle = () => {
 
     initModeStatus() {
       const styleStatus = KEEP.getStyleStatus();
-
       if (styleStatus) {
         styleStatus.isDark ? this.enableDarkMode() : this.enableLightMode();
       } else {

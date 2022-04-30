@@ -1,18 +1,18 @@
 :root {
-  --background-color: #fff;
-  --second-background-color: #f7f7f7;
+  --background-color: rgba(217,217,217,0.561);
+  --second-background-color: rgba(210,210,210,0.561);
   --primary-color: #6c9;
   --first-text-color: #484853;
   --second-text-color: #4c4c57;
   --third-text-color: #808091;
   --fourth-text-color: #ededef;
   --default-text-color: #50505c;
-  --border-color: #b3b3b3;
+  --border-color: rgba(152,152,152,0.561);
   --selection-color: #75d1a3;
   --shadow-color: rgba(0,0,0,0.2);
   --shadow-hover-color: rgba(0,0,0,0.28);
   --scrollbar-color: #595967;
-  --scroll-bar-bg-color: #e6e6e6;
+  --scroll-bar-bg-color: rgba(195,195,195,0.561);
   --link-color: #484853;
   --copyright-info-color: #c03;
   --avatar-background-color: #06c;
@@ -20,20 +20,20 @@
 }
 @media (prefers-color-scheme: light) {
   :root {
-    --background-color: #fff;
-    --second-background-color: #f7f7f7;
+    --background-color: rgba(217,217,217,0.561);
+    --second-background-color: rgba(210,210,210,0.561);
     --primary-color: #6c9;
     --first-text-color: #484853;
     --second-text-color: #4c4c57;
     --third-text-color: #808091;
     --fourth-text-color: #ededef;
     --default-text-color: #50505c;
-    --border-color: #b3b3b3;
+    --border-color: rgba(152,152,152,0.561);
     --selection-color: #75d1a3;
     --shadow-color: rgba(0,0,0,0.2);
     --shadow-hover-color: rgba(0,0,0,0.28);
     --scrollbar-color: #595967;
-    --scroll-bar-bg-color: #e6e6e6;
+    --scroll-bar-bg-color: rgba(195,195,195,0.561);
     --link-color: #484853;
     --copyright-info-color: #c03;
     --avatar-background-color: #06c;
@@ -63,20 +63,20 @@
   }
 }
 .light-mode {
-  --background-color: #fff;
-  --second-background-color: #f7f7f7;
+  --background-color: rgba(217,217,217,0.561);
+  --second-background-color: rgba(210,210,210,0.561);
   --primary-color: #6c9;
   --first-text-color: #484853;
   --second-text-color: #4c4c57;
   --third-text-color: #808091;
   --fourth-text-color: #ededef;
   --default-text-color: #50505c;
-  --border-color: #b3b3b3;
+  --border-color: rgba(152,152,152,0.561);
   --selection-color: #75d1a3;
   --shadow-color: rgba(0,0,0,0.2);
   --shadow-hover-color: rgba(0,0,0,0.28);
   --scrollbar-color: #595967;
-  --scroll-bar-bg-color: #e6e6e6;
+  --scroll-bar-bg-color: rgba(195,195,195,0.561);
   --link-color: #484853;
   --copyright-info-color: #c03;
   --avatar-background-color: #06c;
@@ -104,8 +104,8 @@
 }
 :root {
   --code-foreground: #535360;
-  --code-background: #f2f2f2;
-  --highlight-background: #fafafa;
+  --code-background: rgba(206,206,206,0.561);
+  --highlight-background: rgba(213,213,213,0.561);
   --highlight-foreground: #535360;
   --highlight-comment: #8e908c;
   --highlight-red: #c82829;
@@ -116,13 +116,13 @@
   --highlight-blue: #4271ae;
   --highlight-purple: #8959a8;
   --highlight-gutter-color: #585865;
-  --highlight-gutter-bg-color: #f2f2f2;
+  --highlight-gutter-bg-color: rgba(206,206,206,0.561);
 }
 @media (prefers-color-scheme: light) {
   :root {
     --code-foreground: #535360;
-    --code-background: #f2f2f2;
-    --highlight-background: #fafafa;
+    --code-background: rgba(206,206,206,0.561);
+    --highlight-background: rgba(213,213,213,0.561);
     --highlight-foreground: #535360;
     --highlight-comment: #8e908c;
     --highlight-red: #c82829;
@@ -133,7 +133,7 @@
     --highlight-blue: #4271ae;
     --highlight-purple: #8959a8;
     --highlight-gutter-color: #585865;
-    --highlight-gutter-bg-color: #f2f2f2;
+    --highlight-gutter-bg-color: rgba(206,206,206,0.561);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -156,8 +156,8 @@
 }
 .light-mode {
   --code-foreground: #535360;
-  --code-background: #f2f2f2;
-  --highlight-background: #fafafa;
+  --code-background: rgba(206,206,206,0.561);
+  --highlight-background: rgba(213,213,213,0.561);
   --highlight-foreground: #535360;
   --highlight-comment: #8e908c;
   --highlight-red: #c82829;
@@ -168,7 +168,7 @@
   --highlight-blue: #4271ae;
   --highlight-purple: #8959a8;
   --highlight-gutter-color: #585865;
-  --highlight-gutter-bg-color: #f2f2f2;
+  --highlight-gutter-bg-color: rgba(206,206,206,0.561);
 }
 .dark-mode {
   --code-foreground: #bfbfc7;

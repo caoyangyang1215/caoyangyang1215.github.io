@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
   KEEP.setStyleStatus = () => {
     localStorage.setItem(KEEP.localStorageKey, JSON.stringify(KEEP.styleStatus));
   }
-
+ 
   // get styleStatus from localStorage
   KEEP.getStyleStatus = () => {
     let temp = localStorage.getItem(KEEP.localStorageKey);
@@ -60,6 +60,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // if( KEEP.getStyleStatus() == null){
+  //   KEEP.setStyleStatus();
+  // }
+
   KEEP.printThemeInfo();
   KEEP.refresh();
+
+ 
 });
